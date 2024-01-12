@@ -93,7 +93,7 @@ def boiler_hot_water(ids):
   if (current_supply_flow <=0 or current_supply_temp <=0 or current_return_temp <=0):
     return 0
   else:
-    return 500000*current_supply_flow*abs(current_supply_temp - current_return_temp)
+    return 5e-4*current_supply_flow*abs(current_supply_temp - current_return_temp)
 
 def hw_boiler_eff(ids):
   hhwb1_flow_id, hhwb2_flow_id, hhwb3_flow_id, gas_used_hhw_id = ids
@@ -104,7 +104,7 @@ def hw_boiler_eff(ids):
   if current_gas_used_hhw <= 0:
     return 0
   else:
-    return (current_hhwb1_flow + current_hhwb2_flow + current_hhwb3_flow)/(1000000*current_gas_used_hhw)
+    return 3.412*(current_hhwb1_flow + current_hhwb2_flow + current_hhwb3_flow)/(current_gas_used_hhw)
   
 def hwp_eff(ids):
   hhw_supply_out_id, gas_used_hhw_id, pumping_energy_id = ids
@@ -114,4 +114,4 @@ def hwp_eff(ids):
   if (current_gas_used_hhw <=0 or current_pumping_energy <=0):
     return 0
   else:
-    return current_hhw_supply_out/(1000000*current_gas_used_hhw + 3412140*current_pumping_energy)
+    return current_hhw_supply_out/(1e-3*current_gas_used_hhw + 0.00341214*current_pumping_energy)
