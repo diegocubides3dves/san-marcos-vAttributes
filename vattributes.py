@@ -39,7 +39,7 @@ def chiller_plant_without_hrc_tonnage(ids):
   ch1_current_status = float(attribute_current_value(ch1_status_id))
   ch2_current_status = float(attribute_current_value(ch2_status_id))
   ch3_current_status = float(attribute_current_value(ch3_status_id))
-  if (current_supply_flow <= 0 or current_supply_temp <= 0 or current_return_temp <= 0 or ch1_current_status <= 0 or ch2_current_status <= 0 or ch3_current_status <= 0):
+  if (current_supply_flow <= 0 or current_supply_temp <= 0 or (current_return_temp <= 0 and ch1_current_status <= 0 and ch2_current_status <= 0 and ch3_current_status <= 0)):
     return 0
   else:
     return current_supply_flow*(abs(current_return_temp - current_supply_temp))/24
