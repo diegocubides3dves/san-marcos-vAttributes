@@ -41,7 +41,7 @@ def writing_ids(ids):
                                               cup_cooling_plant_efficiency_part_b([29589,29593, 190])
                                               )#195
   data.append(cup_cooling_plant_efficiency_without_hrc)
-  data.append(gas_hum_steam([30197, 196, 29728]))#139
+  data.append(gas_hum_steam([29728, 196, 29728]))#139
   data.append(gas_hhw([29729, 29731, 29733, 29735, 29737, 29691, 29693, 29695]))#140
   data.append(boiler_hot_water([29625, 29626, 29563]))#199
   data.append(boiler_hot_water([29682, 29683, 29681]))#200
