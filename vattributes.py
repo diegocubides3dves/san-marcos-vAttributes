@@ -39,7 +39,7 @@ def chiller_plant_without_hrc_tonnage(ids):
   ch1_current_status = float(attribute_current_value(ch1_status_id))
   ch2_current_status = float(attribute_current_value(ch2_status_id))
   ch3_current_status = float(attribute_current_value(ch3_status_id))
-  if (current_supply_flow <= 0 or current_supply_temp <= 0 or current_return_temp <= 0 or ch1_current_status <= 0 or ch2_current_status <= 0 or ch3_current_status <= 0):
+  if (current_supply_flow <= 0 or current_supply_temp <= 0 or (current_return_temp <= 0 and ch1_current_status <= 0 and ch2_current_status <= 0 and ch3_current_status <= 0)):
     return 0
   else:
     return current_supply_flow*(abs(current_return_temp - current_supply_temp))/24
@@ -70,7 +70,7 @@ def gas_hum_steam(ids):
   current_stm5 = float(attribute_current_value(stm5_id))
   current_stm1 = float(attribute_current_value(stm1_id))
   current_ng1 = float(attribute_current_value(ng1_id))
-  if (current_stm5 <=0 or current_stm1 <=0 or current_ng1 <=0):
+  if (current_stm5 <=0 or round(current_stm1, 2) <=0 or current_ng1 <=0):
     return 0
   else:
     return (current_stm5/current_stm1)*current_ng1

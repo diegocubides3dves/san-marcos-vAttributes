@@ -24,7 +24,7 @@ def hrc_energy_writing(invoked_by):
     print("error escribiendo atributo: 29887")
 
 def writing_ids(ids):
-  #[ 173, 183, 184, 30568, 190, 193, 195, 139, 140, 199, 200, 201, 202, 203, 204, 206, 208, 209, 30582, 30569]
+  #[ 173, 183, 184, 30568, 190, 193, 195, 139, 140, 199, 200, 201, 202, 203, 204, 206, 208, 209, 30582, 30569] 30583, 30584, 30585
   data = []
   data.append(ch_tonnage([29527,29563, 29528, 29526]))#173
   data.append(ch_tonnage([29533,29563, 29534, 29532]))#183
@@ -41,15 +41,15 @@ def writing_ids(ids):
                                               cup_cooling_plant_efficiency_part_b([29589,29593, 190])
                                               )#195
   data.append(cup_cooling_plant_efficiency_without_hrc)
-  data.append(gas_hum_steam([30197, 196, 29932]))#139
-  data.append(gas_hhw([29729, 29731, 29733, 29735, 29737, 29691, 29693, 29695]))#140
+  data.append(gas_hum_steam([29728, 29742, 138]))#139
+  data.append(gas_hhw([29729, 29731, 29733, 29735, 29737, 30768, 30769, 30770]))#140
   data.append(boiler_hot_water([29625, 29626, 29563]))#199
   data.append(boiler_hot_water([29682, 29683, 29681]))#200
   data.append(boiler_hot_water([29684, 29685, 30358]))#201
   data.append(boiler_hot_water([29686, 29687, 30359]))#202
   data.append(boiler_hot_water([29703, 29704, 29701]))#203
   data.append(boiler_hot_water([29700, 29708, 29845]))#204
-  data.append(hw_boiler_eff([29680,29649,29654, 140])) #206
+  #data.append(hw_boiler_eff([29680,29649,29654, 140])) #206
   data.append(hwp_eff([204, 140, 256]))#208 #256 should be in k Watts sol: 256 from 394
   data.append(hwp_eff([203, 140, 257]))#209 #257 should be in k Watts sol: 257 from 395
   data.append(boiler_hot_water([29981, 29980, 29982]))#30582 is missing 30583, 30584, 30585
