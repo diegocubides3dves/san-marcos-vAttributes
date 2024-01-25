@@ -70,7 +70,7 @@ def gas_hum_steam(ids):
   current_stm5 = float(attribute_current_value(stm5_id))
   current_stm1 = float(attribute_current_value(stm1_id))
   current_ng1 = float(attribute_current_value(ng1_id))
-  if (current_stm5 <=0 or current_stm1 <=0 or current_ng1 <=0):
+  if (current_stm5 <=0 or round(current_stm1, 2) <=0 or current_ng1 <=0):
     return 0
   else:
     return (current_stm5/current_stm1)*current_ng1
