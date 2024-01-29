@@ -117,4 +117,4 @@ def hwp_eff(ids):
   if (current_gas_used_hhw <=0 or current_pumping_energy <=0):
     return 0
   else:
-    return 1e3*current_hhw_supply_out/(current_gas_used_hhw + 3.41214*current_pumping_energy)
+    return 0.1*current_hhw_supply_out/(current_gas_used_hhw + 3.41214*current_pumping_energy) # Return in percentage 
