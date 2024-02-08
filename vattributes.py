@@ -1,13 +1,15 @@
+import requests
 from pymongo import MongoClient
 
-client = MongoClient('mongodb://172.31.43.75:27017/')
-#client = MongoClient('mongodb://52.36.190.119:27017')
-db = client['sanmarcos']
-collection = db['attributes']
+# client = MongoClient('mongodb://172.31.43.75:27017/')
+# #client = MongoClient('mongodb://52.36.190.119:27017')
+# db = client['sanmarcos']
+# collection = db['attributes']
+# attributeHistoriesCollection = db['attributehistories']
 
 def attribute_current_value(id):
-  for document in collection.find({"_id": id}):
-    return document['currentValue']
+  response = requests.get(f"http://host.docker.internal:8080/attributes/{id}")
+  return response.json().get("value")
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
