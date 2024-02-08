@@ -7,7 +7,11 @@ collection = db['attributes']
 
 def attribute_current_value(id):
   for document in collection.find({"_id": id}):
-    return document['currentValue']
+    value = document['currentValue']
+    if str(value).isnumeric():
+      return value
+    else:
+      return -999
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
