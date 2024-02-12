@@ -9,7 +9,7 @@ from pymongo import MongoClient
 
 def attribute_current_value(id):
   response = requests.get(f"http://host.docker.internal:8080/attributes/{id}")
-  return response.json().get("value")
+  return response.json().get("currentValue")
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
