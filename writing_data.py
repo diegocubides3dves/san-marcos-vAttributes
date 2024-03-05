@@ -2,9 +2,9 @@ from vattributes import (hrc_energy, ch_tonnage, chiller_plant_without_hrc_tonna
                          cup_chiller_efficiency, cup_cooling_plant_efficiency_part_b,
                          gas_hum_steam, gas_hhw, boiler_hot_water, hw_boiler_eff,
                          hwp_eff, efficiency_equation)
-from dotenv import dotenv_values
 from datetime import datetime, timedelta
 import requests
+from dotenv import dotenv_values
 
 env = dotenv_values(".env")
 
@@ -20,7 +20,7 @@ def hrc_energy_writing(invoked_by):
   data = hrc_energy([29808, 29812, 29816, 29550, 29554, 29558, 29589, 29593, 29632, 29636])
   now = (datetime.today() + timedelta(hours=0)).isoformat()
   value = {"currentValue": data, "currentDate": now}
-  response = requests.put(f"http://host.docker.internal:8080/attributes/29887", json=value)
+  response = requests.put(f"{url}/attributes/29887", json=value)
   if (response.status_code == 200):
     print(f"atributo: 29887, data: {value}, {invoked_by}")
   else:
@@ -61,7 +61,7 @@ def writing_ids(ids):
   for i in range(len(data)):
     value = {"currentValue": data[i], "currentDate": now}
     response = requests.put(
-      f"http://host.docker.internal:8080/attributes/{ids[i]}",
+      f"{url}/attributes/{ids[i]}",
       json=value)
     if (response.status_code == 200):
       print(f"atributo: {ids[i]}, valor: {value}, ")

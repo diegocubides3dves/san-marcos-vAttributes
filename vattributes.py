@@ -1,6 +1,8 @@
 import requests
-from pymongo import MongoClient
+from dotenv import dotenv_values
 
+env = dotenv_values(".env")
+url = env["LOGIN_URL"]
 # client = MongoClient('mongodb://172.31.43.75:27017/')
 # #client = MongoClient('mongodb://52.36.190.119:27017')
 # db = client['sanmarcos']
@@ -8,7 +10,7 @@ from pymongo import MongoClient
 # attributeHistoriesCollection = db['attributehistories']
 
 def attribute_current_value(id):
-  response = requests.get(f"http://host.docker.internal:8080/attributes/{id}")
+  response = requests.get(f"{url}/attributes/{id}")
   return response.json().get("currentValue")
   
 def hrc_energy(ids):
