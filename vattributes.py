@@ -6,8 +6,15 @@ db = client['sanmarcos']
 collection = db['attributes']
 
 def attribute_current_value(id):
-  for document in collection.find({"_id": id}):
-    return document['currentValue']
+  if type(id) == int:
+    for document in collection.find({"_id": id}):
+      value = document['currentValue']
+      if str(value).isnumeric():
+        return value
+      else:
+        return -999
+  else:
+    return id
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
