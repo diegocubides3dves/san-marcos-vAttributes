@@ -38,7 +38,7 @@ def writing_ids(ids):
   data.append(efficiency_equation([165], [float(calculated_190)]))#193
   cup_cooling_plant_efficiency_without_hrc = efficiency_equation([163,255,182], [30880])#195
   data.append(cup_cooling_plant_efficiency_without_hrc)
-  data.append(gas_hum_steam([29728, 30893, 138]))#139
+  data.append(gas_hum_steam([30922, 30923, 138]))#139
   calculated_140 = gas_hhw([29729, 29731, 29733, 29735, 29737, 30768, 30769, 30770])
   data.append(float(calculated_140))#140
   data.append(boiler_hot_water([29625, 29626, 29563]))#199
@@ -53,7 +53,7 @@ def writing_ids(ids):
   data.append(hwp_eff([float(calculated_204), float(calculated_140), 256]))#208 #256 should be in k Watts sol: 256 from 394
   data.append(hwp_eff([float(calculated_203), float(calculated_140), 257]))#209 #257 should be in k Watts sol: 257 from 395
   data.append(boiler_hot_water([29981, 29980, 29982]))#30582 is missing 30583, 30584, 30585
-  #data.append(ch_tonnage([29984, 29985, 29979, 29984])) #30569
+  data.append(ch_tonnage([29984, 29985, 29979, 29984])) #30569
 
   data.append(boiler_hot_water([30608, 30640,30639]))#30583
   data.append(boiler_hot_water([30609, 30642, 30641]))#30584
