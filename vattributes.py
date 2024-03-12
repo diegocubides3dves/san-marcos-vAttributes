@@ -1,7 +1,6 @@
 from pymongo import MongoClient
 
-client = MongoClient('mongodb://172.31.43.75:27017/')
-#client = MongoClient('mongodb://52.36.190.119:27017')
+client = MongoClient('mongodb://52.36.190.119:27017')
 db = client['sanmarcos']
 collection = db['attributes']
 
