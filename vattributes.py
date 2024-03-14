@@ -9,7 +9,10 @@ def attribute_current_value(id):
   if type(id) == int:
     for document in collection.find({"_id": id}):
       value = document['currentValue']
-      if str(value).isnumeric():
+      status = document.get('status', None)
+      if status == 'out-of-range' or status == 'error':
+        return -999
+      elif str(value).isnumeric():
         return value
       else:
         return -999
