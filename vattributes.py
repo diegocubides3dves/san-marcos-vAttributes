@@ -1,6 +1,10 @@
 from pymongo import MongoClient
+from dotenv import dotenv_values
 
-client = MongoClient('mongodb://52.36.190.119:27017')
+env = dotenv_values(".env")
+
+db_host = env["DB_HOST"]
+client = MongoClient(f'mongodb://{db_host}')
 db = client['sanmarcos']
 collection = db['attributes']
 
