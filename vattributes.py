@@ -12,10 +12,14 @@ def attribute_current_value(id):
   if type(id) == int:
     for document in collection.find({"_id": id}):
       value = document['currentValue']
+      try:
+        value = float(value)
+      except:
+        pass
       status = document.get('status', None)
       if status == 'out-of-range' or status == 'error':
         return -9999
-      elif str(value).isnumeric():
+      elif str(value).isnumeric() or type(value) == int or type(value) == float:
         return value
       else:
         return -9999
