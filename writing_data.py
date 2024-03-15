@@ -49,7 +49,7 @@ def writing_ids(ids):
   data.append(calculated_203)#203
   calculated_204 = boiler_hot_water([29700, 29708, 29845])
   data.append(calculated_204)#204
-  #data.append(hw_boiler_eff([29680,29649,29654, float(calculated_140)])) #206
+  #data.append(hw_boiler_eff([29680,29649,29654, float(calculated_140)])) #206 is kpi now
   data.append(hwp_eff([float(calculated_204), float(calculated_140), 256]))#208 #256 should be in k Watts sol: 256 from 394
   data.append(hwp_eff([float(calculated_203), float(calculated_140), 257]))#209 #257 should be in k Watts sol: 257 from 395
   data.append(boiler_hot_water([29981, 29980, 29982]))#30582 is missing 30583, 30584, 30585
