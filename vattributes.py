@@ -28,6 +28,7 @@ def attribute_current_value(id):
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
+  if electric_meter < 0: electric_meter = 0
   result=[]
   for id in ids:
     current_value= float(attribute_current_value(id))
