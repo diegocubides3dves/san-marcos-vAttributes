@@ -1,17 +1,37 @@
 import requests
 from dotenv import dotenv_values
+from pymongo import MongoClient
+from dotenv import dotenv_values
 
 env = dotenv_values(".env")
 url = env["LOGIN_URL"]
-# client = MongoClient('mongodb://172.31.43.75:27017/')
-# #client = MongoClient('mongodb://52.36.190.119:27017')
-# db = client['sanmarcos']
-# collection = db['attributes']
-# attributeHistoriesCollection = db['attributehistories']
+db_host = env["DB_HOST"]
 
 def attribute_current_value(id):
   response = requests.get(f"{url}/attributes/{id}")
   return response.json().get("currentValue")
+
+client = MongoClient(f'mongodb://{db_host}')
+db = client['sanmarcos']
+collection = db['attributes']
+
+# def attribute_current_value(id):
+#   if type(id) == int:
+#     for document in collection.find({"_id": id}):
+#       value = document['currentValue']
+#       try:
+#         value = float(value)
+#       except:
+#         pass
+#       status = document.get('status', None)
+#       if status == 'out-of-range' or status == 'error':
+#         return 0
+#       elif str(value).isnumeric() or type(value) == int or type(value) == float:
+#         return value
+#       else:
+#         return 0
+#   else:
+#     return id
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
