@@ -37,7 +37,7 @@ def writing_ids(ids):
   data.append(ch_tonnage([29938,29940, 29937, 29936]))#30568
   calculated_190 = chiller_plant_without_hrc_tonnage([29566, 29563, 29567, 29526, 29532, 29539])
   data.append(calculated_190)#190
-  data.append(efficiency_equation([165], [float(calculated_190)]))#193
+  data.append(efficiency_equation([165], [float(190)]))#193
   cup_cooling_plant_efficiency_without_hrc = efficiency_equation([163,255,182], [30880])#195
   data.append(cup_cooling_plant_efficiency_without_hrc)
   data.append(gas_hum_steam([30922, 30923, 138]))#139
