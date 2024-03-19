@@ -8,10 +8,11 @@ url = env["LOGIN_URL"]
 db_host = env["DB_HOST"]
 
 def attribute_current_value(id):
-  if type(id) == float:
-     return id
-  response = requests.get(f"{url}/attributes/{id}")
-  return response.json().get("currentValue")
+  if type(id) == int:
+    response = requests.get(f"{url}/attributes/{id}")
+    return response.json().get("currentValue")
+  else:
+    return id
 
 client = MongoClient(f'mongodb://{db_host}')
 db = client['sanmarcos']
