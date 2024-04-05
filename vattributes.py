@@ -1,11 +1,11 @@
+import os
 from pymongo import MongoClient
-from dotenv import dotenv_values
 
-env = dotenv_values(".env")
-db_host = env["DB_HOST"]
+db_host = os.environ["DB_HOST"]
+db_name = os.environ["DB_NAME"]
 
 client = MongoClient(f'mongodb://{db_host}')
-db = client['sanmarcos']
+db = client[f'{db_name}']
 collection = db['attributes']
 
 def attribute_current_value(id):

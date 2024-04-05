@@ -1,15 +1,13 @@
+import os
 from vattributes import (hrc_energy, ch_tonnage, chiller_plant_without_hrc_tonnage,
                          cup_chiller_efficiency, cup_cooling_plant_efficiency_part_b,
                          gas_hum_steam, gas_hhw, boiler_hot_water, hw_boiler_eff,
                          hwp_eff, efficiency_equation)
-from dotenv import dotenv_values
 from datetime import datetime, timedelta
 import requests
 
-env = dotenv_values(".env")
-
-url = env["LOGIN_URL"]
-user_info = {"user": env["USER"], "password": env["PASSWORD"]}
+url = os.environ["LOGIN_URL"]
+user_info = {"user": os.environ["USER"], "password": os.environ["PASSWORD"]}
 headers = {"Content-Type": "application/json"}
 
 logIn_response= requests.post(f"{url}/3dves/user/logIn", json=user_info, headers=headers)
