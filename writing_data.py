@@ -39,7 +39,7 @@ def writing_ids(ids):
   cup_cooling_plant_efficiency_without_hrc = efficiency_equation([163,255,182], [30880])#195
   data.append(cup_cooling_plant_efficiency_without_hrc)
   data.append(gas_hum_steam([30922, 30923, 138]))#139
-  calculated_140 = gas_hhw([29729, 29731, 29733, 29735, 29737, 30768, 30769, 30770])
+  calculated_140 = gas_hhw([ 30768, 30769, 30770])#29729, 29731, 29733, 29735, 29737,
   data.append(float(calculated_140))#140
   data.append(boiler_hot_water([29625, 29626, 29563]))#199
   data.append(boiler_hot_water([29682, 29683, 29681]))#200
