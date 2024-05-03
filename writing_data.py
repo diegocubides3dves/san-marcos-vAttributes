@@ -1,7 +1,7 @@
 from vattributes import (hrc_energy, ch_tonnage, chiller_plant_without_hrc_tonnage,
                          cup_chiller_efficiency, cup_cooling_plant_efficiency_part_b,
                          gas_hum_steam, gas_hhw, boiler_hot_water, hw_boiler_eff,
-                         hwp_eff, efficiency_equation)
+                         hwp_eff, efficiency_equation, stm_boiler_eff)
 from dotenv import dotenv_values
 from datetime import datetime, timedelta
 import requests
@@ -27,7 +27,7 @@ def hrc_energy_writing(invoked_by):
     print("error escribiendo atributo: 29887")
 
 def writing_ids(ids):
-  #[ 173, 183, 184, 30568, 190, 193, 195, 139, 140, 199, 200, 201, 202, 203, 204, 206, 208, 209, 30582, 30569] 30583, 30584, 30585
+  #[ 173, 183, 184, 30568, 190, 193, 194, 195, 139, 140, 199, 200, 201, 202, 203, 204, 206, 207, 208, 209, 30582, 30569] 30583, 30584, 30585
   data = []
   data.append(ch_tonnage([29527,29563, 29528, 29526]))#173
   data.append(ch_tonnage([29533,29563, 29534, 29532]))#183
@@ -35,9 +35,10 @@ def writing_ids(ids):
   data.append(ch_tonnage([29938,29940, 29937, 29936]))#30568
   calculated_190 = chiller_plant_without_hrc_tonnage([29566, 29563, 29567, 29526, 29532, 29539])
   data.append(calculated_190)#190
-  data.append(efficiency_equation([165], [float(calculated_190)]))#193
+  data.append(efficiency_equation([163], [30880]))#193
+  data.append(efficiency_equation([163, 153, 254, 182], [30879]))#194
   cup_cooling_plant_efficiency_without_hrc = efficiency_equation([163,255,182], [30880])#195
-  data.append(cup_cooling_plant_efficiency_without_hrc)
+  data.append(cup_cooling_plant_efficiency_without_hrc)#
   data.append(gas_hum_steam([30922, 30923, 138]))#139
   calculated_140 = gas_hhw([ 30768, 30769, 30770])#29729, 29731, 29733, 29735, 29737,
   data.append(float(calculated_140))#140
@@ -49,7 +50,8 @@ def writing_ids(ids):
   data.append(calculated_203)#203
   calculated_204 = boiler_hot_water([29700, 29708, 29845])
   data.append(calculated_204)#204
-  data.append(hw_boiler_eff([29680,29649,29654, 30768, 30769, 30770])) #206 is kpi now
+  data.append(hw_boiler_eff([29680,29649,29654, 30768, 30769, 30770])) #206
+  data.append(stm_boiler_eff([196, 29704, 29845, 138]))#207 
   data.append(hwp_eff([float(calculated_204), float(calculated_140), 256]))#208 #256 should be in k Watts sol: 256 from 394
   data.append(hwp_eff([float(calculated_203), float(calculated_140), 257]))#209 #257 should be in k Watts sol: 257 from 395
   data.append(boiler_hot_water([29981, 29980, 29982]))#30582 is missing 30583, 30584, 30585

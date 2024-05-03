@@ -129,6 +129,17 @@ def hw_boiler_eff(ids):
   else:
     return 100000*(current_hhwb1_flow + current_hhwb2_flow + current_hhwb3_flow)/(current_gas_used_hhw1 + current_gas_used_hhw2 + current_gas_used_hhw3)
   
+def stm_boiler_eff(ids):
+  stm_st2_id, hhws_temp_id, hhwr_temp_id, stm_ng_id = ids
+  current_stm_st2 = float(attribute_current_value(stm_st2_id))
+  current_hhws_temp = float(attribute_current_value(hhws_temp_id))
+  current_hhwr_temp = float(attribute_current_value(hhwr_temp_id))
+  current_stm_ng = float(attribute_current_value(stm_ng_id))
+  if current_stm_ng <= 0:
+    return 0.0
+  else:
+    return 0.1*current_stm_st2*abs(current_hhws_temp - current_hhwr_temp)/current_stm_ng 
+  
 def hwp_eff(ids):
   hhw_supply_out_id, gas_used_hhw_id, pumping_energy_id = ids
   current_hhw_supply_out = float(attribute_current_value(hhw_supply_out_id))
