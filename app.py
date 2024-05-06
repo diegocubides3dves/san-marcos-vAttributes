@@ -1,4 +1,7 @@
+from dotenv import load_dotenv
+load_dotenv()
 from writing_data import hrc_energy_writing, writing_ids
+
 
 def handler(event, context):
   hrc_energy_writing(context)
