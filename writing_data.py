@@ -2,12 +2,8 @@ import os
 from vattributes import (hrc_energy, ch_tonnage, chiller_plant_without_hrc_tonnage,
                          cup_chiller_efficiency, cup_cooling_plant_efficiency_part_b,
                          gas_hum_steam, gas_hhw, boiler_hot_water, hw_boiler_eff,
-<<<<<<< HEAD
                          hwp_eff, efficiency_equation, stm_boiler_eff)
 from dotenv import dotenv_values
-=======
-                         hwp_eff, efficiency_equation)
->>>>>>> 2cd7b2828e3aac333f5726274814d8f481ac3c22
 from datetime import datetime, timedelta
 import requests
 
