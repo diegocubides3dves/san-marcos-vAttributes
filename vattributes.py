@@ -13,7 +13,7 @@ def attribute_current_value(id):
     for document in collection.find({"_id": id}):
       value = document['currentValue']
       try:
-        value = float(value)
+        value = max(0, float(value))
       except:
         pass
       status = document.get('status', None)
