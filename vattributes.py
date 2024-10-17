@@ -1,43 +1,38 @@
-import requests
-from dotenv import dotenv_values
+import os
 from pymongo import MongoClient
-from dotenv import dotenv_values
 
-env = dotenv_values(".env")
-url = env["LOGIN_URL"]
-db_host = env["DB_HOST"]
+db_host = os.environ["DB_HOST"]
+db_name = os.environ["DB_NAME"]
+
+client = MongoClient(f'mongodb://{db_host}')
+db = client[f'{db_name}']
+collection = db['attributes']
 
 def attribute_current_value(id):
   if type(id) == int:
-    response = requests.get(f"{url}/attributes/{id}")
-    return response.json().get("currentValue")
+    for document in collection.find({"_id": id}):
+      value = document['currentValue']
+      try:
+        value = max(0, float(value))
+      except:
+        pass
+      status = document.get('status', None)
+      if status == 'out-of-range' or status == 'error':
+        return -9999
+      elif str(value).isnumeric() or type(value) == int or type(value) == float:
+        return value
+      else:
+        return -9999
   else:
     return id
 
 client = MongoClient(f'mongodb://{db_host}')
 db = client['sanmarcos']
 collection = db['attributes']
-
-# def attribute_current_value(id):
-#   if type(id) == int:
-#     for document in collection.find({"_id": id}):
-#       value = document['currentValue']
-#       try:
-#         value = float(value)
-#       except:
-#         pass
-#       status = document.get('status', None)
-#       if status == 'out-of-range' or status == 'error':
-#         return 0
-#       elif str(value).isnumeric() or type(value) == int or type(value) == float:
-#         return value
-#       else:
-#         return 0
-#   else:
-#     return id
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
+  if electric_meter < 0: electric_meter = 0
   result=[]
   for id in ids:
     current_value= float(attribute_current_value(id))
@@ -126,15 +121,28 @@ def boiler_hot_water(ids):
     return 5e-4*current_supply_flow*abs(current_supply_temp - current_return_temp)
 
 def hw_boiler_eff(ids):
-  hhwb1_flow_id, hhwb2_flow_id, hhwb3_flow_id, gas_used_hhw_id = ids
+  hhwb1_flow_id, hhwb2_flow_id, hhwb3_flow_id, gas_used_hhw1_id, gas_used_hhw2_id, gas_used_hhw3_id = ids
   current_hhwb1_flow = float(attribute_current_value(hhwb1_flow_id))
   current_hhwb2_flow = float(attribute_current_value(hhwb2_flow_id))
   current_hhwb3_flow = float(attribute_current_value(hhwb3_flow_id))
-  current_gas_used_hhw = float(attribute_current_value(gas_used_hhw_id))
-  if current_gas_used_hhw <= 0:
+  current_gas_used_hhw1 = float(attribute_current_value(gas_used_hhw1_id))
+  current_gas_used_hhw2 = float(attribute_current_value(gas_used_hhw2_id))
+  current_gas_used_hhw3 = float(attribute_current_value(gas_used_hhw3_id))
+  if (current_gas_used_hhw1 + current_gas_used_hhw2 + current_gas_used_hhw3) <= 0:
     return 0
   else:
-    return 3.412*(current_hhwb1_flow + current_hhwb2_flow + current_hhwb3_flow)/(current_gas_used_hhw)
+    return 100000*(current_hhwb1_flow + current_hhwb2_flow + current_hhwb3_flow)/(current_gas_used_hhw1 + current_gas_used_hhw2 + current_gas_used_hhw3)
+  
+def stm_boiler_eff(ids):
+  stm_st2_id, hhws_temp_id, hhwr_temp_id, stm_ng_id = ids
+  current_stm_st2 = float(attribute_current_value(stm_st2_id))
+  current_hhws_temp = float(attribute_current_value(hhws_temp_id))
+  current_hhwr_temp = float(attribute_current_value(hhwr_temp_id))
+  current_stm_ng = float(attribute_current_value(stm_ng_id))
+  if current_stm_ng <= 0:
+    return 0.0
+  else:
+    return 0.1*current_stm_st2*abs(current_hhws_temp - current_hhwr_temp)/current_stm_ng 
   
 def hwp_eff(ids):
   hhw_supply_out_id, gas_used_hhw_id, pumping_energy_id = ids
