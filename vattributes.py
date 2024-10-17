@@ -1,34 +1,25 @@
 import os
-from pymongo import MongoClient
+import requests
 
-db_host = os.environ["DB_HOST"]
-db_name = os.environ["DB_NAME"]
-
-client = MongoClient(f'mongodb://{db_host}')
-db = client[f'{db_name}']
-collection = db['attributes']
+url = os.environ["LOGIN_URL"]
 
 def attribute_current_value(id):
   if type(id) == int:
-    for document in collection.find({"_id": id}):
-      value = document['currentValue']
-      try:
-        value = max(0, float(value))
-      except:
-        pass
-      status = document.get('status', None)
-      if status == 'out-of-range' or status == 'error':
-        return -9999
-      elif str(value).isnumeric() or type(value) == int or type(value) == float:
-        return value
-      else:
-        return -9999
+    response = requests.get(f"{url}/attributes/{id}")
+    value = response.json().get("currentValue") 
+    try:
+      value = max(0, float(value))
+    except:
+      pass
+    status = response.json().get("status")
+    if status == 'out-of-range' or status == 'error':
+      return -9999
+    elif str(value).isnumeric() or type(value) == int or type(value) == float:
+      return value
+    else:
+      return -9999
   else:
     return id
-
-client = MongoClient(f'mongodb://{db_host}')
-db = client['sanmarcos']
-collection = db['attributes']
   
 def hrc_energy(ids):
   electric_meter = attribute_current_value(30567)
